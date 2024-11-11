@@ -1,0 +1,98 @@
+﻿@model IEnumerable<K22CN3_TranDuyVu_Project02.Models.TDVCartItem>
+
+@{
+    ViewBag.Title = "Thong tin gio hang";
+}
+
+@using (Html.BeginForm("UpdateFromCart", "TDVCart"))
+{
+
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TenGame)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.HinhAnh)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SoLuongMua)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DonGiaMua)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ThanhTien)
+                        </th>
+                        <th>Chuc nang</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <input type="hidden" name="ID" value="@item.ID" />
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenGame)
+                            </td>
+                            <td>
+                                <img src="@item.HinhAnh" style="width:50px" alt="@item.TenGame">
+                            </td>
+                            <td>
+                                <input type="number" name="SoLuongMua" id="SoLuongMua" data-id="@item.ID"
+                                       value="@item.SoLuongMua" style="width:50px;" />
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DonGiaMua)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThanhTien)
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Update", "UpDateToCart", new { id = item.ID, qty= item.SoLuongMua }) |*@
+                                <a href="/tdvcart/UpdateItemCart?id=@item.ID&qty=@item.SoLuongMua"
+                                   class="btn btn-outline-success update">
+                                    Cập nhật
+                                </a>
+
+                                <a href="/tdvcart/DeleteItemCart?id=@item.ID" class="btn btn-outline-danger">Xóa</a>
+
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+            <a href="/TDVCart/ThongTinThanhToan" class="btn btn-outline-success">Thanh toan</a>
+            <button class="btn btn-outline-primary mx-2">Cap nhat gio hang</button>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("input[type='number']").change(function () {
+                let id = $(this).attr("data-id");
+                let qty = $(this).val();
+                // tao link update
+                let url = "/tdvcart/UpdateItemCart?id=" + id + "&qty=" + qty;
+                $(this).parent().siblings("td").children("a.update").attr("href", url);
+            });
+        });
+    </script>
+}

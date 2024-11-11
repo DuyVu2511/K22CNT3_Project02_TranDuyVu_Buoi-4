@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TDVDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CT_HOA_DON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HoaDonID" Type="int" />
+    <Property Name="GameID" Type="int" />
+    <Property Name="SoLuongMua" Type="int" />
+    <Property Name="DonGiaMua" Type="float" />
+    <Property Name="ThanhTien" Type="float" />
+    <Property Name="TrangThai" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="DANH_GIA">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GameID" Type="int" />
+    <Property Name="KhachHangID" Type="int" />
+    <Property Name="NoiDungDanhGia" Type="varchar" MaxLength="500" />
+    <Property Name="DanhGia" Type="tinyint" />
+    <Property Name="NgayDanhGia" Type="datetime" />
+  </EntityType>
+  <EntityType Name="GAME">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaGame" Type="varchar" MaxLength="255" />
+    <Property Name="TenGame" Type="nvarchar" MaxLength="255" />
+    <Property Name="HinhAnh" Type="nvarchar" MaxLength="255" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="DonGia" Type="float" />
+    <Property Name="MaLoai" Type="int" />
+    <Property Name="TrangThai" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="HOA_DON">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaHoaDon" Type="varchar" MaxLength="255" />
+    <Property Name="KhachHangID" Type="int" />
+    <Property Name="NgayHoaDon" Type="datetime" />
+    <Property Name="NgayNhan" Type="datetime" />
+    <Property Name="HoTenKhachHang" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+    <Property Name="DienThoai" Type="varchar" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+    <Property Name="TongTriGia" Type="float" />
+    <Property Name="TrangThai" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="KHACH_HANG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaKhachHang" Type="varchar" MaxLength="255" />
+    <Property Name="HoTenKhachHang" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+    <Property Name="MatKhau" Type="varchar" MaxLength="255" />
+    <Property Name="DienThoai" Type="varchar" MaxLength="10" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+    <Property Name="NgayDangKy" Type="datetime" />
+    <Property Name="TrangThai" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="LOAI_GAME">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaLoaiGame" Type="varchar" MaxLength="255" />
+    <Property Name="TheLoaiGame" Type="nvarchar" MaxLength="255" />
+    <Property Name="TrangThai" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="QUAN_TRI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaiKhoan" Type="varchar" MaxLength="25" />
+    <Property Name="MatKhau" Type="varchar" MaxLength="255" />
+    <Property Name="TrangThai" Type="tinyint" />
+  </EntityType>
+  <Association Name="FK__CT_HOA_DO__GameI__05A3D694">
+    <End Role="GAME" Type="Self.GAME" Multiplicity="0..1" />
+    <End Role="CT_HOA_DON" Type="Self.CT_HOA_DON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GAME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CT_HOA_DON">
+        <PropertyRef Name="GameID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CT_HOA_DO__HoaDo__04AFB25B">
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="0..1" />
+    <End Role="CT_HOA_DON" Type="Self.CT_HOA_DON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOA_DON">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CT_HOA_DON">
+        <PropertyRef Name="HoaDonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DANH_GIA__GameID__756D6ECB">
+    <End Role="GAME" Type="Self.GAME" Multiplicity="0..1" />
+    <End Role="DANH_GIA" Type="Self.DANH_GIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GAME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DANH_GIA">
+        <PropertyRef Name="GameID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DANH_GIA__KhachH__76619304">
+    <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="0..1" />
+    <End Role="DANH_GIA" Type="Self.DANH_GIA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACH_HANG">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DANH_GIA">
+        <PropertyRef Name="KhachHangID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GAME__MaLoai__6DCC4D03">
+    <End Role="LOAI_GAME" Type="Self.LOAI_GAME" Multiplicity="0..1" />
+    <End Role="GAME" Type="Self.GAME" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAI_GAME">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GAME">
+        <PropertyRef Name="MaLoai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__HOA_DON__KhachHa__01D345B0">
+    <End Role="KHACH_HANG" Type="Self.KHACH_HANG" Multiplicity="0..1" />
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KHACH_HANG">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="HOA_DON">
+        <PropertyRef Name="KhachHangID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TDVDbModelStoreContainer">
+    <EntitySet Name="CT_HOA_DON" EntityType="Self.CT_HOA_DON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DANH_GIA" EntityType="Self.DANH_GIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GAME" EntityType="Self.GAME" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOA_DON" EntityType="Self.HOA_DON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KHACH_HANG" EntityType="Self.KHACH_HANG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LOAI_GAME" EntityType="Self.LOAI_GAME" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QUAN_TRI" EntityType="Self.QUAN_TRI" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__CT_HOA_DO__GameI__05A3D694" Association="Self.FK__CT_HOA_DO__GameI__05A3D694">
+      <End Role="GAME" EntitySet="GAME" />
+      <End Role="CT_HOA_DON" EntitySet="CT_HOA_DON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CT_HOA_DO__HoaDo__04AFB25B" Association="Self.FK__CT_HOA_DO__HoaDo__04AFB25B">
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+      <End Role="CT_HOA_DON" EntitySet="CT_HOA_DON" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DANH_GIA__GameID__756D6ECB" Association="Self.FK__DANH_GIA__GameID__756D6ECB">
+      <End Role="GAME" EntitySet="GAME" />
+      <End Role="DANH_GIA" EntitySet="DANH_GIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DANH_GIA__KhachH__76619304" Association="Self.FK__DANH_GIA__KhachH__76619304">
+      <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+      <End Role="DANH_GIA" EntitySet="DANH_GIA" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GAME__MaLoai__6DCC4D03" Association="Self.FK__GAME__MaLoai__6DCC4D03">
+      <End Role="LOAI_GAME" EntitySet="LOAI_GAME" />
+      <End Role="GAME" EntitySet="GAME" />
+    </AssociationSet>
+    <AssociationSet Name="FK__HOA_DON__KhachHa__01D345B0" Association="Self.FK__HOA_DON__KhachHa__01D345B0">
+      <End Role="KHACH_HANG" EntitySet="KHACH_HANG" />
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
